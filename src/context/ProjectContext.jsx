@@ -46,11 +46,13 @@ export const ProjectProvider = ({ children }) => {
   };
 
   const updateProject = (id, updates) => {
-    setProjects(prev => prev.map(project => 
-      project.id === id 
-        ? { ...project, ...updates, updatedAt: new Date().toISOString() }
-        : project
-    ));
+    setProjects(prev => 
+      prev.map(project => 
+        project.id === id 
+          ? { ...project, ...updates, updatedAt: new Date().toISOString() }
+          : project
+      )
+    );
   };
 
   const deleteProject = (id) => {
@@ -70,15 +72,56 @@ export const ProjectProvider = ({ children }) => {
   };
 
   const updateTask = (id, updates) => {
-    setTasks(prev => prev.map(task => 
-      task.id === id 
-        ? { ...task, ...updates, updatedAt: new Date().toISOString() }
-        : task
-    ));
+    setTasks(prev => 
+      prev.map(task => 
+        task.id === id 
+          ? { ...task, ...updates, updatedAt: new Date().toISOString() }
+          : task
+      )
+    );
   };
 
   const deleteTask = (id) => {
     setTasks(prev => prev.filter(task => task.id !== id));
+  };
+
+  const addTeamMember = (member) => {
+    const newMember = {
+      ...member,
+      id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    setTeamMembers(prev => [...prev, newMember]);
+    return newMember;
+  };
+
+  const updateTeamMember = (id, updates) => {
+    setTeamMembers(prev => 
+      prev.map(member => 
+        member.id === id 
+          ? { ...member, ...updates, updatedAt: new Date().toISOString() }
+          : member
+      )
+    );
+  };
+
+  const deleteTeamMember = (id) => {
+    setTeamMembers(prev => prev.filter(member => member.id !== id));
+    // Remove member from all projects and tasks
+    setProjects(prev => 
+      prev.map(project => ({
+        ...project,
+        team: project.team.filter(memberId => memberId !== id),
+        manager: project.manager === id ? '' : project.manager
+      }))
+    );
+    setTasks(prev => 
+      prev.map(task => ({
+        ...task,
+        assignees: task.assignees.filter(memberId => memberId !== id)
+      }))
+    );
   };
 
   const getProjectById = (id) => {
@@ -104,6 +147,9 @@ export const ProjectProvider = ({ children }) => {
     addTask,
     updateTask,
     deleteTask,
+    addTeamMember,
+    updateTeamMember,
+    deleteTeamMember,
     getProjectById,
     getTasksByProjectId,
     getTasksByAssignee
