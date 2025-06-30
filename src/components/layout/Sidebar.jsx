@@ -21,7 +21,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={onClose}
         />
@@ -34,7 +34,10 @@ const Sidebar = ({ isOpen, onClose }) => {
           x: isOpen ? 0 : -280,
           width: isOpen ? 256 : 80
         }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        transition={{
+          duration: 0.3,
+          ease: 'easeInOut'
+        }}
         className="fixed left-0 top-0 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-50 lg:z-30"
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
@@ -52,7 +55,6 @@ const Sidebar = ({ isOpen, onClose }) => {
               </span>
             )}
           </motion.div>
-          
           {isOpen && (
             <button
               onClick={onClose}
@@ -93,7 +95,17 @@ const Sidebar = ({ isOpen, onClose }) => {
         </nav>
 
         <div className="absolute bottom-4 left-0 right-0 px-3">
-          <button className="flex items-center w-full px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200">
+          <NavLink
+            to="/settings"
+            className={({ isActive }) =>
+              `flex items-center w-full px-3 py-2 rounded-lg transition-colors duration-200 ${
+                isActive
+                  ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                  : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+              }`
+            }
+            onClick={() => window.innerWidth < 1024 && onClose()}
+          >
             <SafeIcon icon={FiSettings} className="w-5 h-5 flex-shrink-0" />
             <motion.span
               animate={{ opacity: isOpen ? 1 : 0 }}
@@ -102,7 +114,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             >
               Settings
             </motion.span>
-          </button>
+          </NavLink>
         </div>
       </motion.div>
     </>

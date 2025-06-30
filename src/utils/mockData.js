@@ -7,7 +7,7 @@ export const generateMockData = () => {
       name: 'Sarah Johnson',
       email: 'sarah.johnson@company.com',
       role: 'Project Manager',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b1e8?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
       department: 'Engineering',
       status: 'active'
     },
@@ -25,7 +25,7 @@ export const generateMockData = () => {
       name: 'Emily Rodriguez',
       email: 'emily.rodriguez@company.com',
       role: 'UX Designer',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b1e8?w=150&h=150&fit=crop&crop=face',
       department: 'Design',
       status: 'active'
     },

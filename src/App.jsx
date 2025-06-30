@@ -9,6 +9,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import TasksPage from './pages/TasksPage';
 import TeamPage from './pages/TeamPage';
 import ReportsPage from './pages/ReportsPage';
+import SettingsPage from './pages/SettingsPage';
 import NotificationCenter from './components/notifications/NotificationCenter';
 import { ProjectProvider } from './context/ProjectContext';
 import { NotificationProvider } from './context/NotificationContext';
@@ -24,11 +25,12 @@ function App() {
         <NotificationProvider>
           <Router>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-              <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-              
+              <Sidebar
+                isOpen={sidebarOpen}
+                onClose={() => setSidebarOpen(false)}
+              />
               <div className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
                 <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-                
                 <main className="p-4 lg:p-6">
                   <AnimatePresence mode="wait">
                     <Routes>
@@ -38,11 +40,11 @@ function App() {
                       <Route path="/tasks" element={<TasksPage />} />
                       <Route path="/team" element={<TeamPage />} />
                       <Route path="/reports" element={<ReportsPage />} />
+                      <Route path="/settings" element={<SettingsPage />} />
                     </Routes>
                   </AnimatePresence>
                 </main>
               </div>
-
               <NotificationCenter />
             </div>
           </Router>
